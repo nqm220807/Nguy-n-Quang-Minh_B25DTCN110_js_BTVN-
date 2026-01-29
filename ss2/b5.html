@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sách theo trạng thái và năm xuất bản</title>
+</head>
+<body>
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        let trangThai = prompt("Nhập trạng thái sách (có sẵn / đã mượn):");
+        let namXuatBan = parseInt(prompt("Nhập năm xuất bản:"));
+        console.log("Tên sách:", tenSach);
+        console.log("Trạng thái:", trangThai);
+        console.log("Năm xuất bản:", namXuatBan);
+
+        trangThai = trangThai.toLowerCase();
+
+        let namHienTai = new Date().getFullYear();
+        let soNam = namHienTai - namXuatBan;
+
+        if (trangThai === "có sẵn" && soNam <= 5) {
+            console.log("Sách này mới và có sẵn để mượn");
+        } 
+        else if (trangThai === "đã mượn" && soNam <= 10) {
+            console.log("Sách này đã mượn nhưng khá mới, có thể mượn lại sau");
+        } 
+        else if (trangThai === "đã mượn" && soNam > 10) {
+            console.log("Sách này đã mượn và khá cũ");
+        } 
+        else if (trangThai === "có sẵn" && soNam > 5) {
+            console.log("Sách này có sẵn nhưng đã lâu năm");
+        } 
+    </script>
+</body>
+</html>

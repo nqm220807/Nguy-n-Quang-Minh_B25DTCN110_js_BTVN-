@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        let tenNguoiMuon = prompt("Nhập tên người mượn:");
+        let mucDo = prompt("Nhập mức độ yêu thích (1-5): ");
+
+        if (mucDo === "4" || mucDo === "5") {
+                console.log('Đây là cuốn sách yêu thích của bạn, hãy đọc ngay!');
+                document.write('Sách này có sẵn trong thư viện.');
+        } else if (mucDo === "2" || mucDo === "1") {
+                console.log('Sách này bạn có thể cân nhắc mượn lại sau');
+                document.write('Sách đã được mượn.');
+        } else {
+            console.log('Sách này khá ổn, có thể mượn.');
+            document.write('Sách này khá ổn, có thể mượn.');
+        }
+    </script>
+</body>
+</html>

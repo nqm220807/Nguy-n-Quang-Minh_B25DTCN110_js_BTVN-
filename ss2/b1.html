@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        let tacGia = prompt("Nhập tên tác giả:");
+        let namXuatBan = prompt("Nhập năm xuất bản:");
+        let namHienTai = 2026;
+        let tuoiSach = namHienTai - namXuatBan;
+
+        if (tuoiSach == 2026) {
+            console.log('Đây là sách mới!');
+            document.write('Đây là sách mới!')
+        } else if (tuoiSach <= 5) {
+            console.log('Sách khá mới!');
+            document.write('Sách khá mới!')
+        } else {
+            console.log('Sách đã cũ!');
+            document.write('Sách đã cũ!')
+        }
+    </script>
+</body>
+</html>
