@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        let totalReturn = parseInt(prompt("Hôm nay có bao nhiêu lượt trả sách?"));
+
+        let lateCount = 0;
+
+        if (totalReturn > 0) {
+            for (let i = 1; i <= totalReturn; i++) {
+                console.log(`--- Lượt trả thứ ${i} ---`);
+
+                let returnerName = prompt("Nhập tên người trả:");
+                let bookName = prompt("Nhập tên sách:");
+
+                let borrowedDays;
+
+                do {
+                    borrowedDays = parseInt(
+                        prompt("Nhập số ngày đã mượn thực tế (>= 1):")
+                    );
+                } while (isNaN(borrowedDays) || borrowedDays < 1);
+                //isNaN kiểm tra giá trị có phải là số hay không
+                if (borrowedDays <= 14) {
+                    console.log("Trả đúng hạn");
+                } else if (borrowedDays <= 21) {
+                    console.log("Trả muộn nhẹ");
+                    console.log("Phạt nhắc nhở");
+                    lateCount++;
+                } else {
+                    console.log("Quá hạn nghiêm trọng");
+                    console.log("Cần ghi biên bản phạt");
+                    lateCount++;
+                }
+            }
+
+            console.log("===== THỐNG KÊ CUỐI NGÀY =====");
+            console.log("Tổng số lượt trả sách:", totalReturn);
+            console.log("Số lượt trả muộn (≥ 15 ngày):", lateCount);
+        } else {
+            console.log("Số lượt trả không hợp lệ.");
+        }
+
+    </script>
+</body>
+
+</html>

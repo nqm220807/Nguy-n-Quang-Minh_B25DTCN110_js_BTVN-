@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let mat = 0;
+        let hetHang = 0;
+        let tonNhieu = 0;
+        let tonBinhThuong = 0;
+
+        while (true) {
+            let tiepTuc = prompt("Tiếp tục kiểm kê sách tiếp theo? (có/không)");
+
+            if (tiepTuc === null) break;
+
+            tiepTuc = tiepTuc.toLowerCase();
+
+            if (tiepTuc === "không") {
+                break;
+            }
+
+            if (tiepTuc === "có") {
+                let tenSach = prompt("Nhập tên sách:");
+                let maSach = prompt("Nhập mã sách:");
+
+                let soLuong;
+                let tinhTrang;
+
+                do {
+                    soLuong = parseInt(
+                        prompt("Nhập số lượng thực tế trong kho (>= 0):")
+                    );
+                } while (isNaN(soLuong) || soLuong < 0);
+
+                do {
+                    tinhTrang = parseInt(
+                        prompt("Nhập tình trạng sách (1-Bình thường, 2-Mất):")
+                    );
+                } while (tinhTrang !== 1 && tinhTrang !== 2);
+
+                if (tinhTrang === 2) {
+                    console.log("Sách mất");
+                    mat++;
+                } else if (tinhTrang === 1 && soLuong === 0) {
+                    console.log("Sách hết (vẫn còn trong hệ thống)");
+                    hetHang++;
+                } else if (tinhTrang === 1 && soLuong >= 10) {
+                    console.log("Sách tồn kho nhiều");
+                    tonNhieu++;
+                } else if (tinhTrang === 1 && soLuong >= 1 && soLuong <= 9) {
+                    console.log("Sách tồn kho bình thường");
+                    tonBinhThuong++;
+                }
+            } else {
+                console.log("Vui lòng nhập 'có' hoặc 'không'.");
+            }
+        }
+
+        console.log("===== THỐNG KÊ SAU KIỂM KÊ =====");
+        console.log("Tổng số sách đã kiểm kê:", mat + hetHang + tonNhieu + tonBinhThuong);
+        console.log("Số sách mất:", mat);
+        console.log("Số sách hết hàng:", hetHang);
+        console.log("Số sách tồn kho nhiều:", tonNhieu);
+        console.log("Số sách tồn kho bình thường:", tonBinhThuong);
+
+    </script>
+</body>
+
+</html>

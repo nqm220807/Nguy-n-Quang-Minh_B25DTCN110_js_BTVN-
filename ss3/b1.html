@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // parseInt để chuyển chuỗi sang số nguyên
+        let totalBorrow = parseInt(prompt("Hôm nay có bao nhiêu lượt mượn sách?"));
+        let count = 0;
+
+        if (totalBorrow > 0) {
+            for (let i = 1; i <= totalBorrow; i++) {
+                console.log(`--- Lượt mượn thứ ${i} ---`);
+
+                let borrowerName = prompt("Nhập tên người mượn:");
+                let bookName = prompt("Nhập tên sách:");
+                let borrowDays = parseInt(prompt("Nhập số ngày mượn (1 - 30):"));
+
+                if (borrowDays > 14) {
+                    console.log("Cảnh báo: Thời gian mượn vượt quy định (tối đa 14 ngày)");
+                } else {
+                    console.log("Mượn thành công");
+                }
+
+                count++;
+            
+                console.log("Tổng số lượt mượn:", count);
+            } else {
+                console.log("Số lượt mượn không hợp lệ.");
+            }
+        }
+    </script>
+</body>
+
+</html>

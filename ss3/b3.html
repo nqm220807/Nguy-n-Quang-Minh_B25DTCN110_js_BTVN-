@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        while (true) {
+            let choice = prompt("Có yêu cầu gia hạn mới không? (có/không)");
+
+            if (choice === null) break;
+
+            choice = choice.toLowerCase();
+
+            if (choice === "không") {
+                console.log("Kết thúc chương trình.");
+                break;
+            }
+
+            if (choice === "có") {
+                let readerName = prompt("Nhập tên bạn đọc:");
+                let bookName = prompt("Nhập tên sách:");
+
+                let currentDays;
+                let extendDays;
+
+                do {
+                    currentDays = parseInt(
+                        prompt("Nhập số ngày đã mượn hiện tại (>= 1):")
+                    );
+                } while (isNaN(currentDays) || currentDays < 1);
+
+                do {
+                    extendDays = parseInt(
+                        prompt("Nhập số ngày muốn gia hạn thêm (>= 1):")
+                    );
+                } while (isNaN(extendDays) || extendDays < 1);
+
+                let totalDays = currentDays + extendDays;
+
+                if (totalDays > 60) {
+                    console.log(
+                        "Không được gia hạn: Tổng thời gian vượt quá 60 ngày tối đa"
+                    );
+                } else if (currentDays > 45) {
+                    console.log(
+                        "Không được gia hạn: Đã mượn quá lâu (>45 ngày)"
+                    );
+                } else {
+                    console.log("Gia hạn thành công");
+                }
+            } else {
+                console.log("Vui lòng nhập 'có' hoặc 'không'.");
+            }
+        }
+
+    </script>
+</body>
+
+</html>
