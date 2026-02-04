@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let loginAttempt = 0;
+        let isAuthenticated = false;
+        while (loginAttempt < 3) {
+            let username = prompt("Tên đăng nhập: ");
+            let password = prompt("Mật khẩu: ");
+            if (username == "admin" && password == "12345") {
+                alert("Đăng nhập thành công");
+                isAuthenticated = true;
+                break;
+            } else {
+                loginAttempt++;
+                let remaining = 3 - loginAttempt;
+                if (remaining > 0) {
+                    if (username != "admin" && password != "12345") {
+                 alert(`Sai tên đăng nhập và mật khẩu! Bạn còn ${remaining} lần thử`);
+                    } else if (username != "admin") {
+                        alert(`Sai tên đăng nhập! Bạn còn ${remaining} lần thử`);
+                    } else {
+                        alert(`Sai mật khẩu! Bạn còn ${remaining} lần thử`);
+                    }
+                }
+            }
+        }
+        if (!isAuthenticated) {
+            alert("Tài khoản đã bị khóa do nhập sai quá 3 lần !!");
+        } else {
+            let choice;
+            do {
+                let menu = "--- HỆ THỐNG QUẢN TRỊ THƯ VIỆN ---\n";
+                menu += "1. Phân loại mã số sách (Chẵn/Lẻ)\n";
+                menu += "2. Thiết kế sơ đồ kho sách (Dạng lưới)\n";
+                menu += "3. Dự toán phí bảo trì sách theo năm\n";
+                menu += "4. Tìm mã số sách may mắn\n";
+                menu += "5. Thoát\n";
+                menu += "Vui lòng nhập lựa chọn của bạn (1-5):";
+                choice = Number(prompt(menu));
+
+                switch (choice) {
+                    case 1:
+                        let totalBook = 0;
+                        let evenBook = 0;
+                        let oddBook = 0;
+                        let bookId;
+                        alert(`Nhập 0 để dừng quá trình nhập`);
+                        while (true) {
+                            bookId = Number(prompt("Nhập mã số sách:"));
+                            if (!Number.isInteger(bookId)) {
+                                alert(`Vui lòng nhập số nguyên hợp lệ`);
+                                continue;
+                            }
+                            if (bookId === 0) {
+                                break;
+                            }
+
+                            totalBook++;
+                            if (bookId % 2 == 0) {
+                                evenBook++;
+                            } else {
+                                oddBook++;
+                            }
+                        }
+                        console.log("--- Kết quả phân loại mã sách ---");
+                        console.log(`- Tổng số lượng mã sách đã nhập: ${totalBook}`);
+                        console.log(`- Số mã chẵn (Sách khoa học): ${evenBook}`);
+                        console.log(`- Số mã lẻ (Sách nghệ thuật): ${oddBook}`);
+                        alert("Đã phân loại xong! Xem kết quả tại Console (F12).");
+                        break;
+
+                    case 2:
+                        let row = Number(prompt("Nhập số hàng: "));
+                        let column = Number(prompt("Nhập số cột: "));
+                        console.log(`--- Sơ đồ kho sách (${row} x ${column})`);
+                        for (let i = 1; i <= row; i++) {
+                            let rowLayout = "";
+                            for (let j = 1; j <= column; j++) {
+                                let position = `[${i} - ${j}]`;
+                                if (i == j) {
+                                    position += "(kệ ưu tiên)";
+                                }
+                                rowLayout += position + " ";
+                            }
+                            console.log(rowLayout);
+                        }
+                        alert("Đã thiết kế xong! Xem kết quả tại Console (F12).");
+                        break;
+                    case 3:
+                        let quantityOfBook = Number(prompt("Nhập số lượng sách hiện có"));
+                        let costPerBook = Number(prompt("Nhập phí bảo trì cho 1 cuốn"));
+                        let year = Number(prompt("Nhập vào số năm dự toán"));
+                        if (isNaN(quantityOfBook) || isNaN(costPerBook) || isNaN(year) || quantityOfBook <= 0 || costPerBook <= 0 || year <= 0) {
+                            alert("Dữ liệu nhập vào phải là số dương hợp lệ!!");
+                            break;
+                        }
+                        let totalCost = 0;
+                        console.log("--- Dự toán phí bảo trì theo năm ---");
+                        for (let i = 1; i <= year; i++) {
+                            totalCost = costPerBook * quantityOfBook;
+                            console.log(`Năm ${i}: ${totalCost.toLocaleString()} VNĐ (Đơn giá ${costPerBook.toFixed(0)}/cuốn)`);
+                            costPerBook = costPerBook * 1.1;
+                        }
+                        alert("Đã dự toán xong! Xem kết quả tại Console (F12).");
+                        break;
+                    case 4:
+                        let luckyNumber = 0;
+                        let n = Number(prompt("Nhập số N tham gia:"));
+                        if (isNaN(n) || n <= 0) {
+                            alert("Số N phải là số dương hợp lệ!!");
+                            break;
+                        }
+                        console.log("--- Các mã số may mắn ---");
+                        for (let i = 1; i <= person; i++) {
+                            if (i % 3 == 0 && i % 5 != 0) {
+                                luckyNumber++;
+                                console.log(i + " ");
+                            }
+                        }
+                        console.log(`Tổng số người may mắn: ${luckyNumber}`);
+                        alert("Đã tìm xong! Xem kết quả tại Console (F12).");
+                        break;
+                }
+            } while (choice != 5);
+        }
+    </script>
+</body>
+
+</html>
