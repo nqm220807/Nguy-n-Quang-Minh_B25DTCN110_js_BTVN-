@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let playerIds = [];
+        let playerPositions = [];
+
+        function getPositionName(positionNumber) {
+            switch (positionNumber) {
+                case 1: return "Thủ môn";
+                case 2: return "Hậu vệ";
+                case 3: return "Tiền vệ";
+                case 4: return "Tiền đạo";
+                default: return "Không xác định";
+            }
+        }
+
+        let n;
+        do {
+            n = parseInt(prompt("Có bao nhiêu cầu thủ cần nhập vào đội bóng?"));
+        } while (isNaN(n) || n <= 0);
+
+        for (let i = 0; i < n; i++) {
+            console.log(`Nhập cầu thủ ${i + 1}:`);
+
+            let playerId;
+            let isDuplicate;
+
+            do {
+                isDuplicate = false;
+                playerId = prompt("Mã cầu thủ:");
+
+                for (let j = 0; j < playerIds.length; j++) {
+                    if (playerIds[j] === playerId) {
+                        isDuplicate = true;
+                        alert("Mã cầu thủ đã tồn tại, vui lòng nhập lại!");
+                        break;
+                    }
+                }
+            } while (isDuplicate);
+
+            playerIds.push(playerId);
+
+            let positionNumber;
+            do {
+                positionNumber = parseInt(
+                    prompt("Vị trí (1: Thủ môn, 2: Hậu vệ, 3: Tiền vệ, 4: Tiền đạo)")
+                );
+            } while (positionNumber < 1 || positionNumber > 4 || isNaN(positionNumber));
+
+            playerPositions.push(getPositionName(positionNumber));
+        }
+
+        function printTeamRoster() {
+            console.log(`Đội bóng hiện tại (${playerIds.length} cầu thủ):`);
+            for (let i = 0; i < playerIds.length; i++) {
+                console.log(`${i + 1}. ${playerIds[i]} - ${playerPositions[i]}`);
+            }
+        }
+
+        function findPlayersByPosition(position) {
+            let indexes = [];
+            for (let i = 0; i < playerPositions.length; i++) {
+                if (playerPositions[i] === position) {
+                    indexes.push(i);
+                }
+            }
+            return indexes;
+        }
+
+        printTeamRoster();
+
+        let countPositionNumber = parseInt(
+            prompt("Nhập vị trí cầu thủ muốn đếm số lượng (1: Thủ môn, 2: Hậu vệ, 3: Tiền vệ, 4: Tiền đạo)")
+        );
+
+        let positionName = getPositionName(countPositionNumber);
+        let resultIndexes = findPlayersByPosition(positionName);
+
+        console.log(`Số cầu thủ ở vị trí ${positionName}: ${resultIndexes.length}`);
+        console.log(`Các chỉ số cầu thủ ở vị trí ${positionName}: ${resultIndexes.join(", ")}`);
+
+    </script>
+</body>
+
+</html>

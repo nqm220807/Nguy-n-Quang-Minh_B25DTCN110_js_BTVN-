@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let players = [];
+
+        function getPositionName(number) {
+            if (number === 1) return "Thủ môn";
+            if (number === 2) return "Hậu vệ";
+            if (number === 3) return "Tiền vệ";
+            if (number === 4) return "Tiền đạo";
+            return "";
+        }
+
+        function printTeamRoster() {
+            console.log("Danh sách đội bóng:");
+            for (let i = 0; i < players.length; i++) {
+                let parts = players[i].split("-");
+                console.log(
+                    `${i + 1}. Mã: ${parts[0]} | Tên: ${parts[1]} | Vị trí: ${parts[2]}`
+                );
+            }
+        }
+
+        function pushPlayer(name, position) {
+            players.push(name + "-" + position);
+        }
+
+        let n;
+        do {
+            n = parseInt(prompt("Có bao nhiêu cầu thủ cần nhập vào đội bóng?"));
+        } while (isNaN(n) || n <= 0);
+
+        for (let i = 0; i < n; i++) {
+            let playerId;
+            let isDuplicate;
+
+            do {
+                isDuplicate = false;
+                playerId = prompt("Nhập mã cầu thủ:");
+
+                for (let j = 0; j < players.length; j++) {
+                    let existingId = players[j].split("-")[0];
+                    if (existingId === playerId) {
+                        isDuplicate = true;
+                        alert("Mã cầu thủ đã tồn tại!");
+                        break;
+                    }
+                }
+            } while (isDuplicate);
+
+            let playerName;
+            do {
+                playerName = prompt("Nhập tên cầu thủ:");
+            } while (!playerName);
+
+            let positionNumber;
+            do {
+                positionNumber = parseInt(
+                    prompt("Nhập vị trí (1: Thủ môn, 2: Hậu vệ, 3: Tiền vệ, 4: Tiền đạo)")
+                );
+            } while (positionNumber < 1 || positionNumber > 4 || isNaN(positionNumber));
+
+            let positionName = getPositionName(positionNumber);
+
+            players.push(playerId + "-" + playerName + "-" + positionName);
+        }
+
+        printTeamRoster();
+
+    </script>
+</body>
+
+</html>
