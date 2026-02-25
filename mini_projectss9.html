@@ -1,0 +1,75 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let names = ["Laptop Dell Inspiron", "iPhone 15 Pro", "Tai nghe Sony WH-1000XM5", "Chuột Logitech MX Master 3S", "Màn hình LG 27 inch","Chuột Logitech B100", "Tai nghe JBL C100SI"];
+        let prices = [18500000, 28900000, 7990000, 2490000, 5500000, 150000, 350000];
+        let stocks = [12, 8, 15, 20, 9, 30, 25];
+
+        let choice;
+        do {
+            let menu = "---QUẢN LÝ KHO HÀNG---\n";
+            menu += "1. Lọc danh mục sản phẩm cao cấp\n";
+            menu += "2. Kiểm định trạng thái dữ liệu\n";
+            menu += "3. Phân tích giá trị vốn hóa\n";
+            menu += "4. Triển khai chiến dịch chiết khấu\n";
+            menu += "5. Truy vấn theo từ khóa\n";
+            menu += "6. Báo cáo tình trạng tốn kho\n";
+            menu += "7. Thoát\n";
+            menu += "Nhập lựa chọn của bạn:";
+            choice = Number(prompt(menu));
+
+            switch(choice) {
+                case 1:
+                    let filterHighEndProducts = names.filter((name, index) => prices[index] > 500000);
+                    if (filterHighEndProducts.length > 0) {
+                        console.log(`Danh sách sản phẩm > 500: ${filterHighEndProducts.join(", ")}`)
+                    } else {
+                        console.log("Không có sản phẩm nào > 500k");
+                    }
+                    break;
+                case 2: 
+                    let hasOutStock = stocks.some(a => a == 0);
+                    let allAbove100 = prices.every(b => b > 100000);
+                    console.log("Kết quả kiểm định: ");
+                    console.log("Có sản phẩm hết hàng: ", hasOutStock? "Có":"Không");
+                    console.log("Tất cả giá sản phẩm > 100k: ", allAbove100? "Đúng":"Sai");
+                    break;
+                case 3:
+                   let totalValue = prices.reduce((total, price, index) => {return total + price * stocks[index]}, 0);
+                   console.log(`Tổng giá trị: ${totalValue.toLocaleString()} VND`);
+                   break;
+                case 4:
+                    prices.forEach((value,index) => {
+                        prices[index] = value * 0.9;
+                    });
+                    alert("Đã giảm giá 10% có tất cả sản phẩm");
+                    break;
+                case 5:
+                    let keyWord = prompt("Nhập tên sản phẩm cần tìm:");
+                    let result = [];
+                    names.forEach((name,index) => {
+                        if (name.toLowerCase().includes(keyWord)) {
+                            result.push(`${name} - Giá: ${prices[index] } - Số lượng: ${stocks[index]}`);
+                        }
+                    });
+                    console.log(result.length > 0? "Kết quả tìm kiếm: \n" + result.join("\n") : "Không tìm thấy sản phẩm");
+                    break;
+                case 6:
+                    let statusReport = stocks.map((quantity, index) => {
+                        let status = quantity > 0? "Còn hàng": "Hết hàng";
+                        return `${names[index]}: ${status} (${quantity})`;
+                    });
+                    console.log("Báo cáo tồn kho:\n" + statusReport.join("\n"));
+                    break;
+            }
+
+        } while(choice != 7);
+    </script>
+</body>
+</html>
