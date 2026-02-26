@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+const players = [
+    "Messi - Forward - 25 - 15 - 34",
+    "Ronaldo - Forward - 30 - 10 - 38",
+    "Neymar - Forward - 18 - 20 - 32",
+    "De Bruyne - Midfielder - 8 - 25 - 35",
+    "Kante - Midfielder - 2 - 5 - 36",
+    "Van Dijk - Defender - 5 - 3 - 33",
+    "Alisson - Goalkeeper - 0 - 1 - 37"
+];
+
+function reportByPosition(players) {
+
+    console.log("BÁO CÁO HIỆU SUẤT THEO VỊ TRÍ");
+
+    const parsed = players.map(p => {
+        const parts = p.split("-").map(x => x.trim());
+
+        return {
+            name: parts[0],
+            position: parts[1],
+            goals: Number(parts[2]),
+            assists: Number(parts[3]),
+            matches: Number(parts[4])
+        };
+    });
+
+    // Nhóm theo vị trí
+    const grouped = parsed.reduce((acc, player) => {
+        if (!acc[player.position]) {
+            acc[player.position] = [];
+        }
+        acc[player.position].push(player);
+        return acc;
+    }, {});
+
+    // In báo cáo từng vị trí
+    Object.entries(grouped).forEach(([position, list]) => {
+
+        const stats = list.reduce((sum, p) => {
+            sum.count++;
+            sum.goals += p.goals;
+            sum.assists += p.assists;
+            sum.matches += p.matches;
+            return sum;
+        }, { count: 0, goals: 0, assists: 0, matches: 0 });
+
+        const avgPerformance =
+            ((stats.goals + stats.assists) / stats.matches).toFixed(2);
+
+        console.log(`\n${position}:`);
+        console.log(`- Số cầu thủ: ${stats.count}`);
+        console.log(`- Tổng bàn thắng: ${stats.goals}`);
+        console.log(`- Tổng kiến tạo: ${stats.assists}`);
+        console.log(`- Tổng số trận: ${stats.matches}`);
+        console.log(`- Trung bình hiệu suất/trận: ${avgPerformance}`);
+    });
+
+    // Tổng bàn thắng toàn đội
+    const totalGoals = parsed.reduce((sum, p) => sum + p.goals, 0);
+
+    console.log(`\nTổng bàn thắng toàn đội: ${totalGoals}`);
+}
+
+reportByPosition(players);
+    </script>
+</body>
+</html>

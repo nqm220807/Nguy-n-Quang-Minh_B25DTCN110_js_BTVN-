@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function filterPlayersByPosition(position, players) {
+            return players.filter(function (player) {
+                let parts = player.split("-");
+                let playerPosition = parts[1].trim();
+                return playerPosition === position;
+            });
+        }
+        const players = [
+            "Messi - Forward",
+            "Ronaldo - Forward",
+            "Neymar - Forward",
+            "De Bruyne - Midfielder",
+            "Kante - Midfielder",
+            "Van Dijk - Defender",
+            "Alisson - Goalkeeper"
+        ];
+
+        console.log(filterPlayersByPosition("Midfielder", players));
+
+        console.log(filterPlayersByPosition("Forward", players));
+    </script>
+</body>
+
+</html>
