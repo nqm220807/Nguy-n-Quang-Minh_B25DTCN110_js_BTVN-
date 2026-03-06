@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chợ Tết Online 2026</title>
+    <!-- Nhúng CSS -->
+    <link rel="stylesheet" href="btth.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>🧧 CHỢ TẾT ONLINE 🧧</h1>
+        <p>Sắm sửa đón xuân - Rinh lộc về nhà</p>
+    </header>
+
+    <div class="container">
+        <!-- Cột trái: Danh sách sản phẩm -->
+        <div class="left-col">
+            <h2>Gian Hàng Tết</h2>
+            <div id="product-list" class="grid-container">
+                <!-- Javascript sẽ render sản phẩm vào đây -->
+                
+                <div class="product-card">
+                    <img src="./giolua.jpg" alt="">
+                    <h3>Giò Lụa Ước Lễ</h3>
+                    <p class="price">180.000đ</p>
+                    <button class="btn-add" id="btn-add-${product.id}">Thêm vào giỏ</button>
+                </div>
+                <div class="product-card">
+                    <img src="./canhdao.webp" alt="">
+                    <h3>Cành Đào Nhật Tân</h3>
+                    <p class="price">500.000đ</p>
+                    <button class="btn-add" id="btn-add-${product.id}">Thêm vào giỏ</button>
+                </div>
+                <div class="product-card">
+                    <img src="./muttet.webp" alt="">
+                    <h3>Mứt Tết Thập Cẩm</h3>
+                    <p class="price">120.000đ</p>
+                    <button class="btn-add" id="btn-add-${product.id}">Thêm vào giỏ</button>
+                </div>
+                <div class="product-card">
+                    <img src="./lixi.webp" alt="">
+                    <h3>Lì Xì May Mắn</h3>
+                    <p class="price">20.000đ</p>
+                    <button class="btn-add" id="btn-add-${product.id}">Thêm vào giỏ</button>
+                </div>
+                <div class="product-card">
+                    <img src="./duahau.jpg   " alt="">
+                    <h3>Dưa Hấu Khắc Chữ</h3>
+                    <p class="price">60.000đ</p>
+                    <button class="btn-add" id="btn-add-${product.id}">Thêm vào giỏ</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cột phải: Giỏ hàng -->
+        <div class="right-col">
+            <div class="cart-box">
+                <h2>🛒 Giỏ Hàng Của Bạn</h2>
+
+                <!-- Danh sách các món đã mua -->
+                <ul id="cart-list">
+                    <li class="empty-msg">Chưa có món nào...</li>
+                    <li>
+                        <span class="cart-item-name">Bánh Chưng Tranh Khúc</span>
+                        <div>
+                            <span class="cart-item-price">150.000</span>
+                            <button class="btn-remove">X</button>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="cart-item-name">Dưa Hấu Khắc Chữ</span>
+                        <div>
+                            <span class="cart-item-price">60.000</span>
+                            <button class="btn-remove">X</button>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="cart-summary">
+                    <p>Tổng cộng:</p>
+                    <h3 id="total-price">210.000đ</h3>
+                    <button id="btn-checkout" class="btn-checkout"
+                        onclick="alert('Cảm ơn bạn đã mua hàng! Chúc mừng năm mới!')">Thanh Toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        const products = [
+            { id: 1, name: "Bánh Chưng", price: 150000, img: "" },
+            { id: 2, name: "Giò Lụa", price: 180000, img: "" },
+            { id: 3, name: "Cành Đào", price: 500000, img: "" },
+            { id: 4, name: "Mứt Tết", price: 120000, img: "" },
+            { id: 5, name: "Lì Xì (Tệp)", price: 20000, img: "" },
+            { id: 6, name: "Dưa Hấu", price: 60000, img: "" }
+        ];
+
+        const cart = [
+            { id: 1, name: "Bánh Chưng", price: 150000, img: "" },
+            { id: 2, name: "Giò Lụa", price: 180000, img: "" },
+        ]
+
+        function renderProducts(){
+            const productsList = document.getElementById("product-list");
+            products.forEach((product) => {
+                productsList.innerHTML += `<div class="product-card">
+                    <img src="./banhchung.webp" alt="">
+                    <h3>${product.name}</h3>
+                    <p class="price">${product.price.toLocaleString("vi-vn")}đ</p>
+                    <button class="btn-add" id="btn-add-${product.id}">Thêm vào giỏ</button>
+                </div>`
+            })
+        }
+
+        function renderCart(){
+            const cartList = document.getElementById("cart-list");
+            cart.forEach((item) => {
+                cartList.innerHTML += `<li>
+                        <span class="cart-item-name">${item.name}</span>
+                        <div>
+                            <span class="cart-item-price">${item.price.toLocaleString("vi-vn")}đ</span>
+                            <button class="btn-remove">X</button>
+                        </div>
+                        </li>`
+                    })
+            const emptyStr = document.getElementsByClassName("empty-msg")[0];
+            if(cart.length !== 0){
+                emptyStr.style.display = "none";
+            }  
+
+            const totalPrice = document.getElementById('total-price');
+            totalPrice.innerText = cart.reduce((total,item) => total + item.price, 0).toLocaleString("vi-vn") + "đ";
+        }
+
+        renderProducts();
+        renderCart();
+    </script>
+</body>
+
+</html>

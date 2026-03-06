@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+
+<ul id="product-list">
+</ul>
+
+<form id="product-form">
+    <input type="text" id="product-name" placeholder="Tên sản phẩm">
+    <input type="number" id="product-price" placeholder="Giá (VND)">
+    <button type="submit">Thêm Sản Phẩm</button>
+</form>
+
+<script>
+    const products = [
+    { id: 1, name: "Bánh Chưng", price: 150000 },
+    { id: 2, name: "Giò Lụa", price: 180000 },
+    { id: 3, name: "Cành Đào", price: 500000 },
+    { id: 4, name: "Mứt Tết", price: 120000 },
+    { id: 5, name: "Bao Lì Xì", price: 25000 },
+    { id: 6, name: "Dưa Hấu Tết", price: 80000 }
+];
+
+const productList = document.getElementById("product-list");
+products.forEach(product => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+        <div class="product">
+            <span class="product-name">${product.name}</span>
+            <span class="product-price">${product.price.toLocaleString("vi-VN")} VND</span>
+        </div>
+    `;
+    productList.appendChild(li);
+});
+
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const newName = nameInput.value;
+    const newPrice = Number(priceInput.value);
+
+    const newProduct = {
+        id: products.length + 1,
+        name: newName,
+        price: newPrice
+    };
+
+    products.push(newProduct);
+
+    renderProducts();
+
+});
+
+</script>
+</body>
+</html>
