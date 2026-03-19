@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Tết</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .header {
+            background: #d32f2f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 20px;
+        }
+
+        li {
+            background: #f3e5d3;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: gray;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h2>Công việc chuẩn bị Tết</h2>
+            <p>Click để đánh dấu hoàn thành</p>
+        </div>
+
+        <ul id="todo-list"></ul>
+
+    </div>
+
+    <script>
+        const initialTodos = [
+            { id: 1, task: "Mua bánh chưng", done: false },
+            { id: 2, task: "Dọn nhà đón Tết", done: false },
+            { id: 3, task: "Gói bánh chưng", done: false },
+            { id: 4, task: "Trang trí nhà cửa", done: false }
+        ];
+
+        let todos;
+        function loadTodos() {
+            let data = localStorage.getItem("myTodos");
+            if (data) {
+                todos = JSON.parse(data);
+            } else {
+                todos = initialTodos;
+                localStorage.setItem("myTodos", JSON.stringify(todos));
+            }
+        }
+
+        function renderTodos() {
+            const list = document.getElementById("todo-list");
+            list.innerHTML = "";
+            todos.forEach(todo => {
+                const li = document.createElement("li");
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = todo.done;
+                checkbox.onchange = () => toggleTodo(todo.id);
+                const text = document.createElement("span");
+                text.textContent = todo.task;
+                if (todo.done) {
+                    text.classList.add("done");
+                }
+
+                li.appendChild(checkbox);
+                li.appendChild(text);
+                list.appendChild(li);
+            });
+
+        }
+
+        function toggleTodo(id) {
+            todos = todos.map(todo => {
+                if (todo.id === id) {
+                    return { ...todo, done: !todo.done };
+                }
+                return todo;
+            });
+            localStorage.setItem("myTodos", JSON.stringify(todos));
+            renderTodos();
+
+        }
+
+        loadTodos();
+        renderTodos();
+
+    </script>
+
+</body>
+
+</html>

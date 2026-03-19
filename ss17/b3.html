@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Tết</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+        }
+
+        .container {
+            width: 420px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #d32f2f;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* input */
+
+        .input-group {
+            display: flex;
+            padding: 15px;
+            background: #f7e7c6;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            border: none;
+            background: orange;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* list */
+
+        ul {
+            list-style: none;
+            padding: 15px;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            background: #f3e5d3;
+        }
+
+        /* hoàn thành */
+
+        .done {
+            text-decoration: line-through;
+            color: gray;
+            background: #d0e8d0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h2>Công việc chuẩn bị Tết</h2>
+            <p>Thêm công việc mới & đánh dấu hoàn thành</p>
+        </div>
+
+        <div class="input-group">
+            <input id="todo-input" placeholder="Nhập công việc mới...">
+            <button onclick="addTodo()">Thêm</button>
+        </div>
+
+        <ul id="todo-list"></ul>
+
+    </div>
+
+    <script>
+        const initialTodos = [
+            { id: 1, task: "Mua bánh chưng", done: true },
+            { id: 2, task: "Dọn nhà đón Tết", done: true },
+            { id: 3, task: "Gói bánh chưng", done: false },
+            { id: 4, task: "Trang trí nhà cửa", done: false }
+        ];
+
+        let todos;
+
+
+        function loadTodos() {
+            let data = localStorage.getItem("myTodos");
+
+            if (data) {
+                todos = JSON.parse(data);
+            } else {
+                todos = initialTodos;
+                saveTodos();
+            }
+        }
+
+        function saveTodos() {
+            localStorage.setItem("myTodos", JSON.stringify(todos));
+        }
+
+        function renderTodos() {
+
+            const list = document.getElementById("todo-list");
+            list.innerHTML = "";
+
+            todos.forEach(todo => {
+
+                const li = document.createElement("li");
+
+                if (todo.done) {
+                    li.classList.add("done");
+                }
+
+                const checkbox = document.createElement("input");
+                checkbox.type = "checkbox";
+                checkbox.checked = todo.done;
+
+                checkbox.onchange = () => toggleTodo(todo.id);
+
+                const text = document.createElement("span");
+                text.textContent = todo.task;
+
+                li.appendChild(checkbox);
+                li.appendChild(text);
+
+                list.appendChild(li);
+
+            });
+
+        }
+
+        function toggleTodo(id) {
+
+            todos = todos.map(todo => {
+                if (todo.id === id) {
+                    return { ...todo, done: !todo.done };
+                }
+                return todo;
+            });
+
+            saveTodos();
+            renderTodos();
+        }
+
+        function addTodo() {
+            const input = document.getElementById("todo-input");
+            let value = input.value.trim();
+
+            if (value === "") {
+                alert("Không được để trống!");
+                return;
+            }
+
+            const newTodo = {
+                id: Date.now(),
+                task: value,
+                done: false
+            };
+
+            todos.unshift(newTodo); // thêm lên đầu
+
+            saveTodos();
+            renderTodos();
+
+            input.value = "";
+        }
+
+        document.getElementById("todo-input")
+            .addEventListener("keypress", function (e) {
+                if (e.key === "Enter") {
+                    addTodo();
+                }
+            });
+
+        loadTodos();
+        renderTodos();
+
+    </script>
+
+</body>
+
+</html>

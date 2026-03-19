@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Quản Lý Sản Phẩm</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<style>
+    /* RESET */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", Roboto, sans-serif;
+        background: linear-gradient(135deg, #eef2f7, #f8fafc);
+        color: #333;
+    }
+
+    /* CONTAINER */
+    .container {
+        max-width: 1200px;
+        margin: 30px auto;
+        padding: 20px;
+    }
+
+    /* HEADER */
+    header {
+        background: linear-gradient(135deg, #1976D2, #42A5F5);
+        color: white;
+        text-align: center;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    header h1 {
+        font-size: 32px;
+        margin-bottom: 8px;
+    }
+
+    header p {
+        opacity: 0.9;
+    }
+
+    /* FORM */
+    .form-section {
+        background: white;
+        padding: 25px;
+        margin-top: 25px;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-section h2 {
+        margin-bottom: 15px;
+        color: #1976D2;
+    }
+
+    /* GRID */
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    /* INPUT */
+    input,
+    select,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border-radius: 8px;
+        border: 1.5px solid #ddd;
+        transition: 0.2s;
+        font-size: 14px;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #1976D2;
+        box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.1);
+        outline: none;
+    }
+
+    /* BUTTON */
+    button {
+        padding: 10px 18px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.25s;
+    }
+
+    /* PRIMARY */
+    #submit-btn {
+        background: #1976D2;
+        color: white;
+    }
+
+    #submit-btn:hover {
+        background: #1565C0;
+        transform: translateY(-2px);
+    }
+
+    /* CANCEL */
+    #cancel-btn {
+        background: #9E9E9E;
+        color: white;
+    }
+
+    #cancel-btn:hover {
+        background: #757575;
+    }
+
+    /* DELETE */
+    .danger {
+        background: #E53935;
+        color: white;
+        margin-bottom: 10px;
+    }
+
+    .danger:hover {
+        background: #C62828;
+        transform: translateY(-2px);
+    }
+
+    /* FILTER */
+    .filter-section {
+        margin: 25px 0;
+        display: flex;
+        gap: 10px;
+    }
+
+    .filter-section input {
+        flex: 2;
+    }
+
+    .filter-section select {
+        flex: 1;
+    }
+
+    /* TABLE */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    th {
+        background: #1976D2;
+        color: white;
+        text-align: left;
+    }
+
+    td,
+    th {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+
+    tr:hover {
+        background: #f9fbfd;
+    }
+
+    /* PRICE */
+    td:nth-child(4) {
+        color: #2e7d32;
+        font-weight: 600;
+    }
+
+    /* LOW STOCK */
+    .low-stock {
+        color: #E53935;
+        font-weight: bold;
+    }
+
+    /* ACTION BUTTONS */
+    td button {
+        margin-right: 5px;
+    }
+
+    td button:first-child {
+        background: #FB8C00;
+        color: white;
+    }
+
+    td button:first-child:hover {
+        background: #EF6C00;
+    }
+
+    td button:last-child {
+        background: #E53935;
+        color: white;
+    }
+
+    td button:last-child:hover {
+        background: #C62828;
+    }
+
+    /* EMPTY */
+    #empty {
+        text-align: center;
+        margin-top: 15px;
+        color: #999;
+    }
+
+    /* FOOTER */
+    footer {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 25px;
+        background: white;
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    }
+
+    footer div {
+        text-align: center;
+    }
+
+    footer h3 {
+        font-size: 26px;
+        color: #1976D2;
+    }
+
+    /* HIDDEN */
+    .hidden {
+        display: none;
+    }
+
+    /* ===== RESPONSIVE NÂNG CAO ===== */
+
+    /* ===== TABLET (768px - 1023px) ===== */
+    @media (max-width: 1023px) {
+        .container {
+            padding: 15px;
+        }
+
+        header h1 {
+            font-size: 26px;
+        }
+
+        .grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .filter-section {
+            flex-direction: column;
+        }
+
+        table {
+            display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+    }
+
+    /* ===== MOBILE (≤ 767px) ===== */
+    @media (max-width: 767px) {
+
+        body {
+            font-size: 14px;
+        }
+
+        .container {
+            margin: 10px;
+            padding: 10px;
+        }
+
+        header {
+            padding: 20px;
+        }
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        header p {
+            font-size: 13px;
+        }
+
+        /* FORM */
+        .grid {
+            grid-template-columns: 1fr;
+        }
+
+        input,
+        select,
+        textarea {
+            font-size: 14px;
+        }
+
+        /* BUTTON FULL WIDTH */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .actions button {
+            width: 100%;
+        }
+
+        /* FILTER */
+        .filter-section {
+            flex-direction: column;
+        }
+
+        .filter-section input,
+        .filter-section select {
+            width: 100%;
+        }
+
+        /* TABLE MOBILE */
+        table {
+            font-size: 13px;
+        }
+
+        /* ẨN CỘT KHÔNG QUAN TRỌNG */
+        table th:nth-child(1),
+        table td:nth-child(1),
+        /* ID */
+        table th:nth-child(6),
+        table td:nth-child(6)
+
+        /* Mô tả */
+            {
+            display: none;
+        }
+
+        /* ACTION BUTTON STACK */
+        td button {
+            display: block;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        /* FOOTER */
+        footer {
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        footer h3 {
+            font-size: 22px;
+        }
+    }
+
+    /* ===== MOBILE NHỎ (≤ 480px) ===== */
+    @media (max-width: 480px) {
+
+        header h1 {
+            font-size: 18px;
+        }
+
+        .form-section {
+            padding: 15px;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        table {
+            font-size: 12px;
+        }
+    }
+</style>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Quản Lý Sản Phẩm</h1>
+            <p>Hệ thống quản lý với LocalStorage</p>
+        </header>
+
+        <section class="form-section">
+            <h2 id="form-title">Thêm Sản Phẩm</h2>
+            <form id="product-form">
+
+                <input type="hidden" id="product-id" />
+
+                <div class="grid">
+                    <div>
+                        <label>Tên sản phẩm*</label>
+                        <input type="text" id="name" placeholder="Nhập tên sản phẩm" required />
+                    </div>
+
+                    <div>
+                        <label>Danh mục *</label>
+                        <select id="category">
+                            <option value="">-- Chọn danh mục --</option>
+                            <option>Điện tử</option>
+                            <option>Thời trang</option>
+                            <option>Thực phẩm</option>
+                            <option>Đồ gia dụng</option>
+                            <option>Sách</option>
+                            <option>Khác</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label>Giá (VND) *</label>
+                        <input type="number" id="price" placeholder="0" required />
+                    </div>
+
+                    <div>
+                        <label>Số lượng *</label>
+                        <input type="number" id="quantity" placeholder="0" required />
+                    </div>
+                </div>
+
+                <div>
+                    <label>Mô tả</label>
+                    <textarea id="description" placeholder="Nhập mô tả sản phẩm"></textarea>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" id="submit-btn">Thêm</button>
+                    <button type="button" id="cancel-btn" class="hidden">Hủy</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="filter-section">
+            <input type="text" id="search" placeholder="Tìm kiếm..." />
+            <select id="filter-category">
+                <option value="">Tất cả danh mục</option>
+                <option>Điện tử</option>
+                <option>Thời trang</option>
+                <option>Thực phẩm</option>
+                <option>Đồ gia dụng</option>
+                <option>Sách</option>
+                <option>Khác</option>
+            </select>
+        </section>
+
+        <section>
+            <button id="delete-all" class="danger">Xóa Tất Cả</button>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Tên</th>
+                        <th>Danh mục</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Mô tả</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="product-list"></tbody>
+            </table>
+
+            <p id="empty" class="hidden">Không có sản phẩm</p>
+        </section>
+
+        <footer>
+            <div>
+                <h3 id="total-products">0</h3>
+                <p>Sản phẩm</p>
+            </div>
+            <div>
+                <h3 id="total-quantity">0</h3>
+                <p>Số lượng</p>
+            </div>
+            <div>
+                <h3 id="total-value">0đ</h3>
+                <p>Giá trị</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        const STORAGE_KEY = "products_data";
+
+        let products = [];
+        let idCounter = 1;
+        let editingId = null;
+
+        function saveData() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ products, idCounter }));
+        }
+
+        function loadData() {
+            try {
+                const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+                if (data) {
+                    products = data.products || [];
+                    idCounter = data.idCounter || 1;
+                }
+            } catch {
+                products = [];
+            }
+        }
+
+        function validate(name, category, price, quantity) {
+            if (!name.trim()) return "Tên không được trống";
+            if (!category) return "Chọn danh mục";
+            if (price < 0 || isNaN(price)) return "Giá không hợp lệ";
+            if (quantity < 0 || !Number.isInteger(quantity)) return "Số lượng không hợp lệ";
+            return null;
+        }
+
+        function addProduct(p) {
+            p.id = idCounter++;
+            p.createdAt = new Date().toISOString();
+            p.updatedAt = new Date().toISOString();
+            products.push(p);
+            saveData();
+        }
+
+        function updateProduct(id, newData) {
+            const p = products.find(x => x.id === id);
+            Object.assign(p, newData);
+            p.updatedAt = new Date().toISOString();
+            saveData();
+        }
+
+        function deleteProduct(id) {
+            if (!confirm("Xóa sản phẩm?")) return;
+            products = products.filter(p => p.id !== id);
+            saveData();
+            render();
+        }
+
+        function deleteAll() {
+            if (!confirm("Xóa tất cả?")) return;
+            products = [];
+            idCounter = 1;
+            saveData();
+            render();
+        }
+
+        function render() {
+            const list = document.getElementById("product-list");
+            const empty = document.getElementById("empty");
+
+            list.innerHTML = "";
+
+            const keyword = document.getElementById("search").value.toLowerCase();
+            const category = document.getElementById("filter-category").value;
+
+            let filtered = products.filter(p =>
+                p.name.toLowerCase().includes(keyword) ||
+                p.description.toLowerCase().includes(keyword)
+            );
+
+            if (category) {
+                filtered = filtered.filter(p => p.category === category);
+            }
+
+            if (filtered.length === 0) {
+                empty.classList.remove("hidden");
+            } else {
+                empty.classList.add("hidden");
+            }
+
+            filtered.forEach(p => {
+                list.innerHTML += `
+      <tr>
+        <td>${p.id}</td>
+        <td>${p.name}</td>
+        <td>${p.category}</td>
+        <td>${p.price.toLocaleString()}đ</td>
+        <td class="${p.quantity < 10 ? 'low-stock' : ''}">
+          ${p.quantity}
+        </td>
+        <td>${p.description || ""}</td>
+        <td>
+          <button onclick="edit(${p.id})">Sửa</button>
+          <button onclick="deleteProduct(${p.id})">Xóa</button>
+        </td>
+      </tr>
+    `;
+            });
+
+            updateStats(filtered);
+        }
+
+        function updateStats(data) {
+            const total = data.length;
+            const quantity = data.reduce((sum, p) => sum + p.quantity, 0);
+            const value = data.reduce((sum, p) => sum + p.price * p.quantity, 0);
+
+            document.getElementById("total-products").innerText = total;
+            document.getElementById("total-quantity").innerText = quantity;
+            document.getElementById("total-value").innerText = value.toLocaleString() + "đ";
+        }
+
+        document.getElementById("product-form").onsubmit = function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const category = document.getElementById("category").value;
+            const price = Number(document.getElementById("price").value);
+            const quantity = Number(document.getElementById("quantity").value);
+            const description = document.getElementById("description").value;
+
+            const error = validate(name, category, price, quantity);
+            if (error) {
+                alert(error);
+                return;
+            }
+
+            const data = { name, category, price, quantity, description };
+
+            if (editingId) {
+                updateProduct(editingId, data);
+            } else {
+                addProduct(data);
+            }
+
+            resetForm();
+            render();
+        };
+
+        function edit(id) {
+            const p = products.find(x => x.id === id);
+
+            editingId = id;
+
+            document.getElementById("name").value = p.name;
+            document.getElementById("category").value = p.category;
+            document.getElementById("price").value = p.price;
+            document.getElementById("quantity").value = p.quantity;
+            document.getElementById("description").value = p.description;
+
+            document.getElementById("form-title").innerText = "Chỉnh sửa";
+            document.getElementById("submit-btn").innerText = "Cập nhật";
+            document.getElementById("cancel-btn").classList.remove("hidden");
+
+            window.scrollTo(0, 0);
+        }
+
+        function resetForm() {
+            editingId = null;
+            document.getElementById("product-form").reset();
+            document.getElementById("form-title").innerText = "Thêm Sản Phẩm";
+            document.getElementById("submit-btn").innerText = "Thêm";
+            document.getElementById("cancel-btn").classList.add("hidden");
+        }
+
+        document.getElementById("cancel-btn").onclick = resetForm;
+        document.getElementById("delete-all").onclick = deleteAll;
+
+        document.getElementById("search").oninput = render;
+        document.getElementById("filter-category").onchange = render;
+
+        loadData();
+        render();
+    </script>
+</body>
+
+</html>
