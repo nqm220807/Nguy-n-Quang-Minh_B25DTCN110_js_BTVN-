@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Công Việc - Todo List</title>
+    <link rel="stylesheet" href="todo-list.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <h1>📝 Quản Lý Công Việc</h1>
+        <div class="input-group">
+          <input
+            type="text"
+            id="taskInput"
+            placeholder="Nhập công việc mới..."
+            autocomplete="off"
+          />
+          <button id="addBtn" class="btn-add">Thêm</button>
+        </div>
+      </header>
+
+      <!-- Body - Task List -->
+      <main class="task-list" id="taskList">
+        <!-- Tasks will be dynamically added here -->
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <div class="empty-state-text">
+            Chưa có công việc nào. Hãy thêm công việc mới!
+          </div>
+        </div>
+
+        <div class="task-item" data-id="2">
+          <input type="checkbox" class="task-checkbox"/><span class="task-text">Quét nhà</span>
+          <div class="task-actions">
+            <button class="btn-edit">✏️ Sửa</button>
+            <button class="btn-delete">🗑️ Xóa</button>
+          </div>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="task-counter">
+          <span id="completedCount">0</span> /
+          <span id="totalCount">0</span> công việc hoàn thành
+        </div>
+        <div class = " completion-status" id = "completionStatus"></div>
+      </footer>
+    </div>
+
+    <script src="scrip.js"></script>
+  </body>
+</html>
