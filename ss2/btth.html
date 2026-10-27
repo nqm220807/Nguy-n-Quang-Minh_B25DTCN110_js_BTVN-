@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let userName = prompt("Nhập tên người dùng:"); 
+        let role = prompt("Nhập vai trò (admin, student, guest):");
+        let balance = prompt("Nhập số dư tài khoản:"); 
+        let cardStatus = prompt("Trạng thái thẻ (true = hoạt động):");
+        let lateDays = prompt("Số ngày quá hạn trả sách:");
+
+        userName = userName ? userName.trim() : "";
+        let roleNormalized = role ? role.trim().toLowerCase() : "";
+        balance = Number(balance) || 0;
+        lateDays = Number(lateDays) || 0;
+        let isCardActive = cardStatus === "true";
+
+        let roleMessage = "";
+        switch (roleNormalized) {
+            case "admin":
+                roleMessage = "Chào Admin, bạn có toàn quyền hệ thống";
+                break;
+            case "student":
+                roleMessage = "Chào sinh viên, bạn có thể mượn sách";
+                break;
+            case "guest":
+                roleMessage = "Chào khách, bạn chỉ có thể đọc tại chỗ";
+                break;
+            default:
+                roleMessage = "Lỗi: Vai trò không hợp lệ!";
+        }
+
+        let canBorrow = true;
+        let rejectReason = [];
+
+        if (!userName) {
+            canBorrow = false;
+            rejectReason.push("Tên người dùng trống");
+        }
+
+        if (!(roleNormalized === "student" || roleNormalized === "admin")) {
+            canBorrow = false;
+            rejectReason.push("Vai trò không được phép mượn");
+        }
+
+        if (!(balance > 0 && isCardActive)) {
+            canBorrow = false;
+            if (balance <= 0) rejectReason.push("Số dư không đủ");
+            if (!isCardActive) rejectReason.push("Thẻ đang bị khóa");
+        }
+
+        let borrowResult = "";
+        if (canBorrow) {
+            borrowResult = "ĐƯỢC PHÉP MƯỢN SÁCH";
+        } else {
+            borrowResult = "YÊU CẦU BỊ TỪ CHỐI: " + rejectReason.join(", ");
+        }
+
+        let fine = 0;
+        let returnStatus = "";
+        let warning = "";
+
+        if (lateDays <= 0) {
+            returnStatus = "Trả đúng hạn";
+            fine = 0;
+        } else if (lateDays >= 1 && lateDays <= 5) {
+            returnStatus = `Quá hạn ${lateDays} ngày`;
+            fine = lateDays * 5000;
+        } else if (lateDays >= 6 && lateDays <= 10) {
+            returnStatus = `Quá hạn ${lateDays} ngày`;
+            fine = lateDays * 10000;
+        } else {
+            returnStatus = `Quá hạn ${lateDays} ngày`;
+            fine = 200000;
+            warning = " TÀI KHOẢN BỊ KHÓA";
+        }
+
+        console.log(`
+            --- HỆ THỐNG MƯỢN TRẢ ---
+
+            Người dùng: ${userName.toUpperCase()}
+
+            Quyền hạn: ${roleMessage}
+
+            Kết quả mượn: ${borrowResult}
+
+            Tình trạng trả sách: ${returnStatus}
+
+            Tiền phạt: ${fine.toLocaleString("vi-VN")} VNĐ
+
+            ${warning}
+        `);
+        
+
+    </script>
+</body>
+
+</html>

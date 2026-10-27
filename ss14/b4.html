@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+
+<ul id="product-list"></ul>
+
+<form id="product-form">
+    <input type="text" id="product-name" placeholder="Tên sản phẩm" required>
+    <input type="number" id="product-price" placeholder="Giá (VND)" required>
+    <button type="submit">Thêm Sản Phẩm</button>
+</form>
+
+<script>
+    const products = [
+    { id: 1, name: "Bánh Chưng", price: 150000 },
+    { id: 2, name: "Giò Lụa", price: 180000 },
+    { id: 3, name: "Cành Đào", price: 500000 },
+    { id: 4, name: "Mứt Tết", price: 120000 },
+    { id: 5, name: "Bao Lì Xì", price: 25000 },
+    { id: 6, name: "Dưa Hấu Tết", price: 80000 }
+];
+
+const productList = document.getElementById("product-list");
+const form = document.getElementById("product-form");
+
+products.forEach(product => {
+
+    const li = document.createElement("li");
+    li.className = "product-item";
+
+    li.innerHTML = `
+        <span class="product-name">${product.name}</span>
+        <span class="product-price">${product.price.toLocaleString("vi-VN")} VND</span>
+        <button class="edit-price-btn">Sửa giá</button>
+        <button class="delete-btn">Xóa</button>
+    `;
+
+    productList.appendChild(li);
+
+});
+
+
+// thêm sp
+form.addEventListener("submit", function(e){
+    const name = document.getElementById("product-name").value;
+    const price = document.getElementById("product-price").value;
+
+    const newProduct = {
+        id: products.length + 1,
+        name: name,
+        price: Number(price)
+    };
+    products.push(newProduct);
+
+    const li = document.createElement("li");
+    li.className = "product-item";
+    li.innerHTML = `
+        <span class="product-name">${newProduct.name}</span>
+        <span class="product-price">${newProduct.price.toLocaleString("vi-VN")} VND</span>
+        <button class="edit-price-btn">Sửa giá</button>
+        <button class="delete-btn">Xóa</button>
+    `;
+
+    productList.appendChild(li);
+    form.reset();
+});
+
+productList.addEventListener("click", function(e){
+
+    // xóa sp
+    if(e.target.classList.contains("delete-btn")){
+
+        const confirmDelete = confirm("Bạn có chắc muốn xóa sản phẩm này?");
+
+        if(confirmDelete){
+            const li = e.target.closest("li");
+            li.remove();
+        }
+    }
+
+
+    // sửa giá sp
+    if(e.target.classList.contains("edit-price-btn")){
+        const newPrice = prompt("Nhập giá mới (VND):");
+        if(newPrice !== null && newPrice !== "" && !isNaN(newPrice)){
+            const li = e.target.closest("li");
+            const priceElement = li.querySelector(".product-price");
+            priceElement.textContent = Number(newPrice).toLocaleString("vi-VN") + " VND";
+
+        }
+
+    }
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý mượn sách thư viện</title>
+</head>
+<body>
+    <h2>Quản lý mượn sách</h2>
+
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        let tenNguoiMuon = prompt("Nhập tên người mượn:");
+        let trangThaiSach = prompt("Nhập trạng thái sách (có sẵn / đã mượn / không có sẵn):");
+        let soNgayMuon = parseInt(prompt("Nhập số ngày mượn:"));
+        let coTheThuVien = prompt("Bạn có thẻ thư viện không? (có / không):");
+        
+        console.log("Tên sách:", tenSach);
+        console.log("Người mượn:", tenNguoiMuon);
+        console.log("Trạng thái sách:", trangThaiSach);
+        console.log("Số ngày mượn:", soNgayMuon);
+        console.log("Có thẻ thư viện:", coTheThuVien);
+        
+        trangThaiSach = trangThaiSach.toLowerCase();
+        coTheThuVien = coTheThuVien.toLowerCase();
+
+        if (trangThaiSach === "có sẵn") {
+            if (coTheThuVien === "có") {
+                console.log("=> Chúc mừng, bạn có thể mượn sách này");
+            } else if (coTheThuVien === "không") {
+                console.log("=> Bạn không thể mượn sách nếu không có thẻ thư viện");
+            } else {
+                console.log("=> Thông tin không hợp lệ, vui lòng nhập lại");
+            }
+        }
+        else if (trangThaiSach === "đã mượn") {
+            if (soNgayMuon < 30) {
+                if (coTheThuVien === "có") {
+                    console.log("=> Sách đang được mượn, vui lòng đợi đến khi trả lại");
+                } else if (coTheThuVien === "không") {
+                    console.log("=> Bạn không thể mượn sách nếu không có thẻ thư viện");
+                } else {
+                    console.log("=> Thông tin không hợp lệ, vui lòng nhập lại");
+                }
+            } else {
+                console.log("=> Sách đã bị mượn quá lâu, vui lòng hỏi thủ thư");
+            }
+        }
+        else if (trangThaiSach === "không có sẵn") {
+            console.log("=> Sách này hiện tại không có sẵn trong thư viện, bạn có thể đăng ký mượn sau");
+        }
+        else {
+            console.log("=> Thông tin không hợp lệ, vui lòng nhập lại");
+        }
+    </script>
+</body>
+</html>

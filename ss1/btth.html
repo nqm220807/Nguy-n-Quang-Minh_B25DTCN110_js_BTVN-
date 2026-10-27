@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        console.log("Sách: " + tenSach);
+        let tacGia = prompt("Nhập tên tác giả:");
+        console.log("Tác giả: " + tacGia);
+        let namXuatBan = prompt("Nhập năm xuất bản:");
+        namXuatBan = Number(namXuatBan);
+        console.log("Năm xuất bản: " + namXuatBan);
+        let giaTien = prompt("Nhập giá tiền sách:");
+        giaTien = Number(giaTien);
+        console.log("Giá tiền: " + giaTien + " VND");
+        let soLuongSach = prompt("Nhập số lượng sách:");
+        soLuongSach = Number(soLuongSach);
+        console.log("Số lượng sách: " + soLuongSach + " cuốn");
+        tenSach = tenSach.trim();
+        tacGia = tacGia.toUpperCase();
+        namXuatBan = Number(namXuatBan);    
+        giaTien = Number(giaTien);
+        soLuongSach = Number(soLuongSach);
+        let idBook = tacGia.slice(0,3) + namXuatBan + "-" + Math.floor(Math.random() * 1000) +1;
+        console.log("ID sách: " + idBook);
+        let tuoiSach = 2026 - namXuatBan;
+        console.log("Tuổi sách: " + tuoiSach + " năm");
+        let tongGiaTri = giaTien * soLuongSach;
+        tongGiaTri = Number(tongGiaTri);
+        console.log("Tổng giá trị sách trong thư viện: " + tongGiaTri + " VND");
+        let keGoiY = Math.floor(Math.random() * 10) + 1;
+        document.write("---PHIẾU NHẬP KHO---<br>");
+        document.write("Mã sách: " + idBook + "<br>");
+        document.write("Tên sách: " + tenSach + "<br>");
+        document.write("Tác giả: " + tacGia + "<br>");
+        document.write("Năm xuất bản: " + namXuatBan + "<br>");
+        document.write("Tuổi sách: " + tuoiSach + " năm<br>");
+        document.write("Tổng gia trị: " + tongGiaTri + " VND<br>");
+        document.write("Ngăn kệ gợi ý: Kệ số " + keGoiY + "<br>");
+
+
+    </script>
+</body>
+</html>

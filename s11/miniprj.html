@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let students = [];
+
+        function showMenu() {
+            return prompt(`
+QUẢN LÝ SINH VIÊN
+1. Thêm sinh viên
+2. Danh sách sinh viên
+3. Lọc sinh viên (GPA > 8)
+4. Cập nhật sinh viên
+5. Xóa sinh viên
+6. Xác minh tuân thủ
+7. Thống kê học thuật (GPA trung bình)
+8. Chuẩn hóa dữ liệu (Tên viết hoa)
+0. Thoát
+Chọn chức năng (0-8):
+`);
+        }
+        // thêm sinh viên
+        const createStudent = () => {
+            let name = prompt("Enter student name:");
+            if (!isNaN(name) || name.trim() === "") return alert("Invalid name!");
+
+            let age = parseInt(prompt("Enter student age:"));
+            if (isNaN(age) || age <= 0 || age > 100) return alert("Invalid age!");
+
+            let gpa = parseFloat(prompt("Enter student GPA (0.0 - 10.0):"));
+            if (isNaN(gpa) || gpa < 0 || gpa > 10) {
+                alert("Invalid GPA");
+                return;
+            }
+            let status = prompt("Enter status (active/inactive)");
+            if (status !== "active" && status !== "inactive") return alert("Invalid status");
+
+            let newStudent = {
+                id: students.length + 1,
+                name: name,
+                age: age,
+                gpa: gpa,
+                status: status,
+            }
+            students.push(newStudent);
+            alert(`Student created successfully!\n ID: ${newStudent.id} | Name: ${newStudent.name} | Age: ${newStudent.age} | GPA: ${newStudent.gpa} | Status: ${newStudent.status}`);
+
+        }
+        // xem danh sách
+        const readAllStudents = () => {
+            students.map((student) => {
+                alert(`ID: ${student.id} | Name: ${student.name} | Age: ${student.age} | GPA: ${student.gpa} | Status: ${student.status}`);
+            })
+        }
+
+        // lọc sinh viên
+        function filterScholarship() {
+            let result = students.filter(s => s.gpa > 8);
+
+            console.log("Danh sách sinh viên GPA > 8.0:", result);
+            alert(`Tìm thấy ${result.length} sinh viên có GPA > 8.0`);
+        }
+        // cập nhật sinh viên
+        function updateStudent() {
+            let id = Number(prompt("Nhập ID sinh viên cần cập nhật:"));
+            let student = students.find(s => s.id === id);
+
+            if (!student) {
+                alert("Không tìm thấy sinh viên!");
+
+                return;
+            }
+
+            student.name = prompt("Nhập tên mới:", student.name);
+            student.gpa = Number(prompt("Nhập GPA mới:", student.gpa));
+
+            alert("Cập nhật thành công!");
+        }
+        // xóa sinh viên
+        function deleteStudent() {
+            let id = Number(prompt("Nhập ID sinh viên cần xóa:"));
+            let beforeLength = students.length;
+            students = students.filter(s => s.id !== id);
+
+            if (students.length === beforeLength)
+                alert("Không tìm thấy sinh viên!");
+            else
+                alert("Xóa thành công!");
+        }
+        // xác minh tuân thủ
+        function complianceVerification() {
+
+            // Có ít nhất 1 người < 18 ?
+            let hasUnder18 = students.some(s => s.age < 18);
+
+            // Tất cả đều active ?
+            let allActive = students.every(s => s.status === "active");
+
+            console.log("Số sinh viên dưới 18:", hasUnder18);
+            console.log("All students active:", allActive);
+        }
+        // gpa trung bình
+        function academicStatistics() {
+
+            if (students.length === 0) {
+                alert("Không có dữ liệu");
+                return;
+            }
+
+            let avgGpa =
+                students.reduce((sum, s) => sum + s.gpa, 0) / students.length;
+
+            console.log("GPA trung bình là:", avgGpa.toFixed(2));
+            alert("Average GPA calculated ");
+        }
+        // chuẩn hóa dữ liệu
+        function normalizeData() {
+
+            let normalizedList = students.map(s => ({
+                ...s,
+                name: s.name.toUpperCase()
+            }));
+
+            console.log("Normalized Data:", normalizedList);
+            alert("Uppercase version created");
+        }
+
+        let choice;
+
+        while (choice !== "0") {
+            choice = showMenu();
+
+            switch (choice) {
+                case "1": createStudent(); break;
+                case "2": readAllStudents(); break;
+                case "3": filterScholarship(); break;
+                case "4": updateStudent(); break;
+                case "5": deleteStudent(); break;
+                case "6": complianceVerification(); break;
+                case "7": academicStatistics(); break;
+                case "8": normalizeData(); break;
+                case "0": alert("Đã thoát chương trình!!!"); break;
+                default: alert("Lựa chọn không hợp lệ!"); break;
+            }
+        }
+    </script>
+</body>
+
+</html>

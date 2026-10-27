@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    form{
+        margin: 20px;
+    }
+</style>
+<body>
+    <h1>
+        demo dom
+    </h1>
+
+    <form action="" id="form">
+        <div class="input-group">
+        <label for="">Họ và tên</label>
+        <input type="text" id="name">
+        </div>
+        <br>
+        <div class="input-group">
+        <label for="">Tuổi</label>
+        <input type="text" id="age">
+        </div>
+
+    </form>
+
+    <script>
+        console.log(document);
+        // truy cập phần tử html trong dom
+        let form = document.getElementById('form');
+        let inoutGrroup = document.getElementsByClassName('input-group');
+        let labelGroup = document.getElementsByTagName('label');
+        console.log(form);
+        console.log(inoutGrroup);
+        console.log(labelGroup);
+        
+        // thuộc tính trong phần tử
+        //nội dung html bên trong phần tử
+        //console.log(form.innerHTML);
+        form.innerHTML += `<h3>Đây là nội dung mới bên trong form</h3>
+        <button>Nút</button>`;
+
+        //nội dung text bên trong phần tử
+        console.log(form.innerText); // lấy nội dung nhìn thấy trên giao diện
+        console.log(form.textContent); // lấy nd toàn bộ text
+        form.classList.add('bg-blue');
+        
+        
+    </script>
+</body>
+</html>

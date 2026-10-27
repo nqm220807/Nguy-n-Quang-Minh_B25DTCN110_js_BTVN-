@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let playerIds = ["P001", "P002", "P003", "P004", "P005"];
+
+        let playerNames = [
+            "Nguyễn Văn A",
+            "Trần Thị B",
+            "Lê Văn C",
+            "Phạm Văn D",
+            "Hoàng Thị E"
+        ];
+
+        let playerJerseyNumbers = [10, 7, 8, 9, 11];
+
+        function printTeamRoster() {
+            console.log("Danh sách đội bóng:");
+            for (let i = 0; i < playerIds.length; i++) {
+                console.log(
+                    `${i + 1}. ${playerIds[i]} - ${playerNames[i]} - Số áo: ${playerJerseyNumbers[i]}`
+                );
+            }
+        }
+
+        function updatePlayerNameAndJersey(playerId, newName, newJerseyNumber) {
+            for (let i = 0; i < playerIds.length; i++) {
+                if (playerIds[i] === playerId) {
+                    playerNames[i] = newName;
+                    playerJerseyNumbers[i] = newJerseyNumber;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        printTeamRoster();
+
+        let inputId = prompt("Nhập mã cầu thủ muốn cập nhật (ví dụ: P001):");
+
+        let index = playerIds.indexOf(inputId);
+
+        if (index !== -1) {
+            let newName = prompt("Nhập tên mới cho cầu thủ:");
+            let newJerseyNumber;
+
+            do {
+                newJerseyNumber = parseInt(prompt("Nhập số áo mới (1–99):"));
+            } while (isNaN(newJerseyNumber) || newJerseyNumber < 1 || newJerseyNumber > 99);
+
+            let result = updatePlayerNameAndJersey(inputId, newName, newJerseyNumber);
+
+            if (result) {
+                console.log("Cập nhật thành công!");
+                printTeamRoster();
+            }
+        } else {
+            console.log("Không tìm thấy cầu thủ với mã này!");
+        }
+
+    </script>
+</body>
+
+</html>

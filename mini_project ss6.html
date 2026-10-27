@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let libraries = ["Toán", "Văn", "Anh"];
+        let loginAttempt = 0;
+        let loginSuscess = false;
+        while (loginAttempt < 3) {
+            let username = prompt("Tên đăng nhập:");
+            let password = prompt("Mật khẩu:");
+            if (username == "admin" && password == "12345") {
+                loginSuscess = true;
+                alert("Đăng nhập thành công !!");
+                break;
+            } else {
+                loginAttempt++;
+                let remaining = 3 - loginAttempt;
+                if (remaining > 0) {
+                    if (username != "admin" && password != "12345") {
+                        alert(`Sai tài khoản và mật khẩu! Bạn còn ${remaining} lần thử !!!`);
+                    } else if (username != "admin") {
+                        alert(`Sai tài khoản! Bạn còn ${remaining} lần thử !!!`);
+                    } else {
+                        alert(`Sai mật khẩu! Bạn còn ${remaining} lần thử !!!`)
+                    }
+                }
+            }
+        }
+        if (!loginSuscess) {
+            alert("Đã vượt quá số lần thử! TÀI KHOẢN CỦA BẠN ĐÃ BỊ KHÓA");
+        } else {
+            let choice;
+            do {
+                let menu = "---HỆ THỐNG QUẢN TRỊ THƯ VIỆN---\n";
+                menu += "1. Nhập thêm lô sách mới\n";
+                menu += "2 Hiển thị danh sách sách\n";
+                menu += "3. Tìm kiếm sách\n";
+                menu += "4. Cập nhật tên sách\n";
+                menu += "5. Đảo ngược thứ tự kệ sách\n";
+                menu += "6. Nhập kho từ nguồn khác\n";
+                menu += "7. Thoát chương trình\n";
+                menu += "Chọn chức năng (1-7):";
+                choice = Number(prompt(menu));
+                switch (choice) {
+                    case 1:
+                        let listBooks = prompt("Nhập danh sách tên sách mới (cách nhau bởi dấu phẩy)");
+                        let books = listBooks.split(",");
+                        let countBook = 0;
+                        for (let i = 0; i < books.length; i++) {
+                            libraries.push(books[i]);
+                            countBook++;
+                        }
+                        alert(`Đã thêm thành công ${countBook} cuốn`);
+                        break;
+                    case 2:
+                        console.log("---DANH SÁCH SÁCH HIỆN CÓ---");
+                        for (let i = 0; i < libraries.length; i++) {
+                            console.log(`${i + 1}. ${libraries[i]}`);
+                        }
+                        break;
+                    case 3:
+                        let nameBook = prompt("Sách cần tìm:");
+                        let findBook = libraries.indexOf(nameBook);
+                        if (findBook == -1) {
+                            alert("Không tìm thấy");
+                        } else {
+                            alert(`Sách ${nameBook} được tìm thấy tại vị trí ${findBook}`);
+                        }
+                        break;
+                    case 4:
+                        let bookRepair = prompt("Sách cần sửa");
+                        let findBook1 = libraries.indexOf(bookRepair);
+                        if (findBook1 == -1) {
+                            alert("Không tim thấy");
+                        } else {
+                            alert("Đã tìm thấy sách");
+                            let newName = prompt("Tên mới: ");
+                            libraries[findBook1] = newName;
+                            alert("Đã sửa thành công !!");
+                        }
+                        break;
+                    case 5:
+                        libraries.reverse();
+                        console.log("---KỆ SAU KHI ĐẢO NGƯỢC---");
+                        for (let index in libraries) {
+                            console.log(`${index}. ${libraries[index]}`);
+                        }
+                        alert("Đảo ngược thành công !!!");
+                        break;
+                    case 6:
+                        let externalLibrary = ["Sách Kỹ Năng", "Truyện Tranh"];
+                        libraries = libraries.concat(externalLibrary);
+                        alert("Đã gộp kho sách từ chi nhánh khác thành công.");
+                        break;
+                    case 7:
+                        alert("Hẹn gặp lại !!!");
+                        break;
+                    default:
+                        alert("Lựa chọn không hợp lệ!");
+                        break;
+                }
+
+            } while (choice != 7);
+        }
+    </script>
+</body>
+
+</html>

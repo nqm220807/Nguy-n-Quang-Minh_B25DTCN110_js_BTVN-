@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Thư viện khoa học</title>
+</head>
+<body>
+<script>
+    let books = ["Nha Gia Kim", "Dac Nhan Tam", "Tuan Lam Viec 4 Gio"];
+    let choice;
+
+    do {
+        choice = prompt(
+            "--- THƯ VIỆN KHOA HỌC ---\n" +
+            "1. Xem danh sách\n" +
+            "2. Nhập sách mới\n" +
+            "3. Mượn sách (Xóa)\n" +
+            "4. Sửa tên sách\n" +
+            "5. Sắp xếp kệ\n" +
+            "0. Thoát\n\n" +
+            "Bạn chọn:"
+        );
+
+        switch (choice) {
+            case "1":
+                if (books.length === 0) {
+                    alert("Kho sách hiện đang trống!");
+                } else {
+                    let list = "";
+                    for (let i = 0; i < books.length; i++) {
+                        list += (i + 1) + ". " + books[i] + "\n";
+                    }
+                    alert(
+                        "=> Danh sách hiện tại (" + books.length + " cuốn):\n\n" +
+                        list
+                    );
+                }
+                break;
+
+            case "2":
+                let newBook = prompt("Nhập tên sách mới:");
+                if (newBook && newBook.trim() !== "") {
+                    books.push(newBook);
+                    alert("Đã thêm thành công!");
+                } else {
+                    alert("Tên sách không hợp lệ!");
+                }
+                break;
+
+            case "3":
+                let borrowBook = prompt("Nhập tên sách muốn mượn:");
+                let indexBorrow = books.indexOf(borrowBook);
+
+                if (indexBorrow === -1) {
+                    alert("Lỗi: Không tìm thấy sách " + borrowBook + "!");
+                } else {
+                    books.splice(indexBorrow, 1);
+                    alert("Đã cho mượn cuốn '" + borrowBook + "'.");
+                }
+                break;
+
+            case "4":
+                let oldName = prompt("Nhập tên sách cần sửa:");
+                let indexEdit = books.indexOf(oldName);
+
+                if (indexEdit === -1) {
+                    alert("Không tìm thấy sách cần sửa!");
+                } else {
+                    let newName = prompt("Nhập tên sách mới:");
+                    if (newName && newName.trim() !== "") {
+                        books[indexEdit] = newName;
+                        alert("Đã cập nhật tên sách thành công!");
+                    } else {
+                        alert("Tên sách mới không hợp lệ!");
+                    }
+                }
+                break;
+
+            case "5":
+                books.sort();
+                alert("Danh sách sau khi sắp xếp:\n\n" + books.join("\n"));
+                break;
+
+            case "0":
+                alert("Thoát chương trình!");
+                break;
+
+            default:
+                alert("Vui lòng chọn đúng chức năng!");
+        }
+
+    } while (choice !== "0");
+</script>
+</body>
+</html>

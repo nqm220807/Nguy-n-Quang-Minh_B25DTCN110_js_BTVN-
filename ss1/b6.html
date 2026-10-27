@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let tenSach = prompt("Nhập tên sách:");
+        let soThuTu = prompt("Nhập số thứ tự của sách:");
+        tenSach = tenSach.trim();
+        soThuTu = Number(soThuTu);
+        let tenSachInHoa = tenSach.toUpperCase();
+        console.log("Tên sách: " + tenSachInHoa);
+        console.log("Số thứ tự: " + soThuTu);
+        let maSach = "LIB-" + tenSachInHoa +"-" + soThuTu;
+        console.log("Mã sách sau chuẩn hóa: " + maSach);
+        document.write("<br>Tên sách gốc: " + tenSach);
+        document.write("<br>Mã sách sau chuẩn hóa: " + maSach);
+    </script>
+</body>
+</html>

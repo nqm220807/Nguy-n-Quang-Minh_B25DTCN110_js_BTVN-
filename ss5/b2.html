@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let sachTraMuon = [];
+
+        let soLuong = parseInt(prompt("Hôm nay có bao nhiêu cuốn sách bị trả muộn?"));
+
+        for (let i = 0; i < soLuong; i++) {
+            let tenSach = prompt("Nhập tên cuốn sách bị trả muộn thứ " + (i + 1) + ":");
+            sachTraMuon.push(tenSach);
+        }
+
+        document.write("Tổng số sách bị trả muộn: " + sachTraMuon.length + "<br><br>");
+
+        document.write("Danh sách sách bị trả muộn:<br>");
+        for (let i = 0; i < sachTraMuon.length; i++) {
+            document.write((i + 1) + "- " + sachTraMuon[i] + "<br>");
+        }
+
+        let dem = 0;
+        for (let i = 0; i < sachTraMuon.length; i++) {
+            if (sachTraMuon[i].length > 20) {
+                dem++;
+            }
+        }
+
+        document.write("<br>Số lượng sách có tên dài hơn 20 ký tự: " + dem);
+    </script>
+</body>
+
+</html>

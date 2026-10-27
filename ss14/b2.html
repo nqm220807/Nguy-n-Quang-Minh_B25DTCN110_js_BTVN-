@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Danh Sách Sản Phẩm Chợ Tết</title>
+</head>
+<body>
+
+<h1>Danh Sách Sản Phẩm Chợ Tết</h1>
+
+<ul id="product-list">
+</ul>
+
+<form id="product-form">
+
+<input 
+type="text" 
+id="product-name" 
+placeholder="Tên sản phẩm" 
+required
+>
+
+<input 
+type="number" 
+id="product-price" 
+placeholder="Giá (VND)" 
+required
+>
+
+<button type="submit">Thêm Sản Phẩm</button>
+
+</form>
+
+<script>
+    const products = [
+    { id: 1, name: "Bánh Chưng", price: 150000 },
+    { id: 2, name: "Giò Lụa", price: 180000 },
+    { id: 3, name: "Cành Đào", price: 500000 },
+    { id: 4, name: "Mứt Tết", price: 120000 },
+    { id: 5, name: "Bao Lì Xì", price: 25000 },
+    { id: 6, name: "Dưa Hấu Tết", price: 80000 }
+];
+
+const productList = document.getElementById("product-list");
+
+// hiển thị sản phẩm ban đầu
+products.forEach(product => {
+
+    const li = document.createElement("li");
+
+    li.className = "product-item";
+
+    li.innerHTML = `
+        <span>${product.name}</span>
+        <span>${product.price.toLocaleString("vi-VN")} VND</span>
+    `;
+
+    productList.appendChild(li);
+
+});
+
+
+// lấy form
+const form = document.getElementById("product-form");
+
+form.addEventListener("submit", function(e){
+
+    // 1 ngăn form reload
+    e.preventDefault();
+
+    // 2 lấy giá trị input
+    const name = document.getElementById("product-name").value;
+    const price = document.getElementById("product-price").value;
+
+    // 3 tạo object sản phẩm
+    const newProduct = {
+        id: products.length + 1,
+        name: name,
+        price: Number(price)
+    };
+
+    products.push(newProduct);
+
+    // 4 tạo thẻ li
+    const li = document.createElement("li");
+
+    li.className = "product-item";
+
+    li.innerHTML = `
+        <span>${newProduct.name}</span>
+        <span>${newProduct.price.toLocaleString("vi-VN")} VND</span>
+    `;
+
+    // 5 thêm vào danh sách
+    productList.appendChild(li);
+
+    // 6 xóa input
+    form.reset();
+
+});
+</script>
+
+</body>
+</html>

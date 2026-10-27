@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sách cần bổ sung</title>
+</head>
+<body>
+<script>
+    let booksId = [];
+    let booksName = [];
+    let inventoryQuantity = [];
+
+    let soLoai = parseInt(prompt("Có bao nhiêu loại sách cần kiểm tra bổ sung hôm nay?"));
+
+    for (let i = 0; i < soLoai; i++) {
+        let maSach;
+        do {
+            maSach = prompt("Nhập mã sách (không được để trống):");
+        } while (maSach === "");
+
+        let tenSach;
+        do {
+            tenSach = prompt("Nhập tên sách (không được để trống):");
+        } while (tenSach === "");
+
+        let soLuong;
+        do {
+            soLuong = parseInt(prompt("Nhập số lượng tồn kho hiện tại (>= 0):"));
+        } while (isNaN(soLuong) || soLuong < 0);
+
+        booksId.push(maSach);
+        booksName.push(tenSach);
+        inventoryQuantity.push(soLuong);
+    }
+
+    document.write("Danh sách sách cần xem xét bổ sung (" + booksId.length + " loại):<br>");
+
+    for (let i = 0; i < booksId.length; i++) {
+        document.write(
+            (i + 1) + ". Mã: " + booksId[i] +
+            " - Tên: " + booksName[i] +
+            " - Còn: " + inventoryQuantity[i] + " bản<br>"
+        );
+    }
+
+    let demUuTien = 0;
+    for (let i = 0; i < inventoryQuantity.length; i++) {
+        if (inventoryQuantity[i] <= 5) {
+            demUuTien++;
+        }
+    }
+
+    let danhSachHetHang = "";
+    for (let i = 0; i < inventoryQuantity.length; i++) {
+        if (inventoryQuantity[i] === 0) {
+            danhSachHetHang += booksId[i] + " ";
+        }
+    }
+
+    document.write("<br>Số sách có tồn kho ≤ 5 bản: " + demUuTien + " loại<br>");
+
+    if (danhSachHetHang === "") {
+        document.write("Không có sách nào đã hết hàng.");
+    } else {
+        document.write("Các mã sách đã hết hàng (0 bản): " + danhSachHetHang);
+    }
+</script>
+</body>
+</html>

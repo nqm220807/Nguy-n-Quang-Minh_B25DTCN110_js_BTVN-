@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let count = prompt("Nhập số lượng sách: ");
+        console.log("Số lượng sách là: " + count);
+
+        let total = 150;
+
+        let checkNumber = total - count;
+
+        if (checkNumber < 10) {
+            console.log('Thư viện có ít sách');
+            document.write('Thư viện có ít sách');
+        } else if (checkNumber >= 10 && checkNumber <= 20) {
+            console.log('Thư viện có số lượng sách vừa đủ');
+            document.write('Thư viện có số lượng sách vừa đủ');
+        } else {
+            console.log('Thư viện có nhiều sách');
+            document.write('Thư viện có nhiều sách');
+        }
+    </script>
+</body>
+</html>

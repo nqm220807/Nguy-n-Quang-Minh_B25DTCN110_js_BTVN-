@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý sách hư hỏng</title>
+</head>
+
+<body>
+    <script>
+        let booksId = [];
+        let booksName = [];
+        let bookStatus = [];
+
+        let soLuong = parseInt(prompt(
+            "Có bao nhiêu cuốn sách cần kiểm tra tình trạng hôm nay?"
+        ));
+
+        for (let i = 0; i < soLuong; i++) {
+
+            let maSach;
+            do {
+                maSach = prompt("Nhập mã sách (không để trống):");
+            } while (maSach === "");
+
+            let tenSach;
+            do {
+                tenSach = prompt("Nhập tên sách (không để trống):");
+            } while (tenSach === "");
+
+            let luaChon;
+            do {
+                luaChon = parseInt(prompt(
+                    "Chọn tình trạng ban đầu:\n" +
+                    "1. Hỏng nhẹ\n" +
+                    "2. Hỏng nặng\n" +
+                    "3. Cần sửa gấp"
+                ));
+            } while (luaChon < 1 || luaChon > 3);
+
+            let tinhTrang = "";
+            switch (luaChon) {
+                case 1: tinhTrang = "Hỏng nhẹ"; break;
+                case 2: tinhTrang = "Hỏng nặng"; break;
+                case 3: tinhTrang = "Cần sửa gấp"; break;
+            }
+
+            booksId.push(maSach);
+            booksName.push(tenSach);
+            bookStatus.push(tinhTrang);
+        }
+
+        document.write("=== DANH SÁCH BAN ĐẦU ===<br>");
+        for (let i in booksId) {
+            document.write(
+                (Number(i) + 1) + ". Mã: " + booksId[i] +
+                " - Tên: " + booksName[i] +
+                " - Tình trạng: " + bookStatus[i] + "<br>"
+            );
+        }
+
+        let tiepTuc = true;
+        while (tiepTuc) {
+
+            let chon = parseInt(prompt(
+                "Bạn muốn làm gì?\n" +
+                "1. Sửa tình trạng sách\n" +
+                "2. Loại bỏ (xóa) sách\n" +
+                "0. Kết thúc và in báo cáo"
+            ));
+
+            switch (chon) {
+                case 0:
+                    tiepTuc = false;
+                    break;
+
+                case 1:
+                    let maSua = prompt("Nhập mã sách cần sửa:");
+                    let timThay = false;
+
+                    for (let i in booksId) {
+                        if (booksId[i] === maSua) {
+
+                            let chonMoi;
+                            do {
+                                chonMoi = parseInt(prompt(
+                                    "Chọn tình trạng mới:\n" +
+                                    "1. Hỏng nhẹ\n" +
+                                    "2. Hỏng nặng\n" +
+                                    "3. Cần sửa gấp\n" +
+                                    "4. Đã sửa xong\n" +
+                                    "5. Loại bỏ"
+                                ));
+                            } while (chonMoi < 1 || chonMoi > 5);
+
+                            switch (chonMoi) {
+                                case 1: bookStatus[i] = "Hỏng nhẹ"; break;
+                                case 2: bookStatus[i] = "Hỏng nặng"; break;
+                                case 3: bookStatus[i] = "Cần sửa gấp"; break;
+                                case 4: bookStatus[i] = "Đã sửa xong"; break;
+                                case 5: bookStatus[i] = "Loại bỏ"; break;
+                            }
+
+                            timThay = true;
+                            break;
+                        }
+                    }
+
+                    if (!timThay) alert("Không tìm thấy mã sách!");
+                    break;
+
+                case 2:
+                    let maXoa = prompt("Nhập mã sách cần xóa:");
+                    let viTri = -1;
+
+                    for (let i in booksId) {
+                        if (booksId[i] === maXoa) {
+                            viTri = i;
+                            break;
+                        }
+                    }
+
+                    if (viTri !== -1) {
+                        booksId.splice(viTri, 1);
+                        booksName.splice(viTri, 1);
+                        bookStatus.splice(viTri, 1);
+                        alert("Đã xóa sách.");
+                    } else {
+                        alert("Không tìm thấy mã sách!");
+                    }
+                    break;
+
+                default:
+                    alert("Lựa chọn không hợp lệ!");
+            }
+
+            document.write("<br>--- DANH SÁCH HIỆN TẠI ---<br>");
+            if (booksId.length === 0) {
+                document.write("Danh sách trống.<br>");
+            } else {
+                let index = 1;
+                for (let ten of booksName) {
+                    document.write(
+                        index + ". Mã: " + booksId[index - 1] +
+                        " - Tên: " + ten +
+                        " - Tình trạng: " + bookStatus[index - 1] + "<br>"
+                    );
+                    index++;
+                }
+            }
+        }
+
+        let daSuaXong = 0;
+        let loaiBo = 0;
+
+        for (let trangThai of bookStatus) {
+            if (trangThai === "Đã sửa xong") daSuaXong++;
+            if (trangThai === "Loại bỏ") loaiBo++;
+        }
+
+        document.write("<br>=== BÁO CÁO CUỐI NGÀY ===<br>");
+        document.write("Tổng số sách còn lại: " + booksId.length + "<br>");
+        document.write("Số sách đã sửa xong: " + daSuaXong + "<br>");
+        document.write("Số sách loại bỏ: " + loaiBo + "<br>");
+    </script>
+</body>
+
+</html>
